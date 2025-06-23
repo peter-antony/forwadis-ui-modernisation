@@ -9,6 +9,7 @@ import { ErrorBoundary } from "./components/molecules/ErrorBoundary/ErrorBoundar
 import TripExecutionManagement from "./pages/TripExecutionManagement";
 import NotFound from "./pages/NotFound";
 import { ROUTES } from "./config/app.config";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +42,7 @@ const App = () => {
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path={ROUTES.HOME} element={<TripExecutionManagement />} />
+                <Route path={ROUTES.HOME} element={<Dashboard />} />
                 <Route path={ROUTES.DASHBOARD} element={<TripExecutionManagement />} />
                 <Route path="/trip-execution" element={<TripExecutionManagement />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
