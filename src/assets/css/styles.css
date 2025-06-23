@@ -1,0 +1,21 @@
+.headerDivider{
+    width: 1px;
+    height: 26px;
+}
+.profilePic{
+    width: 32px;
+    height: 32px;
+}
+.text-blue-500{
+    --tw-text-opacity: 1;
+    color: #0073E6;
+}
+.text-gray-600{
+    color: #475467;
+}
+.text-sm{
+    font-size: 13px;
+}
+.text-lg{
+    font-size: 16px;
+}
