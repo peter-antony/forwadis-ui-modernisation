@@ -25,7 +25,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <AppHeader />
           </div>
           
-          <main className="flex-1 p-3 md:p-6 overflow-auto pb-0 mt-16">
+          <main className="flex-1 overflow-auto pb-0 mt-16">
             {children}
           </main>
 

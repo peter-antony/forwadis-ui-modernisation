@@ -16,7 +16,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {item.label == 'Home' && <Home size={16} />}
-          <span className={item.active ? 'text-foreground' : item.href ? 'text-blue-600' : ''}>
+          <span className={item.active ? 'text-foreground' : item.href ? 'text-blue-600 cursor-pointer' : 'cursor-pointer'}>
             {item.label}
           </span>
           {index < items.length - 1 && <span><ChevronRight size={16} className="text-gray-400" /></span>}
