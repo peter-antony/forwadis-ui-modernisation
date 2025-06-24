@@ -1,5 +1,5 @@
 
-import { GridPlugin } from '@/types/smartgrid';
+import { GridPlugin } from '@/types/smartGrid';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import React from 'react';

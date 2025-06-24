@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Check, X } from 'lucide-react';
-import { CellEditProps } from '@/types/smartgrid';
+import { CellEditProps } from '@/types/smartGrid';
 
 export function CellEditor({ value, column, onSave, onCancel }: CellEditProps) {
   const [editValue, setEditValue] = useState(value);

@@ -1,6 +1,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
-import { GridPreferences, Column } from '@/types/smartgrid';
+import { GridPreferences, Column } from '@/types/smartGrid';
 
 export function useGridPreferences<T>(
   columns: Column<T>[],

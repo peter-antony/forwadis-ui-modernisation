@@ -10,7 +10,7 @@ import { CalendarIcon, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { FilterValue } from '@/types/filterSystem';
-import { GridColumnConfig } from '@/types/smartgrid';
+import { GridColumnConfig } from '@/types/smartGrid';
 
 interface ColumnFilterInputProps {
   column: GridColumnConfig;

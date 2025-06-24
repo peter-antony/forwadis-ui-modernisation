@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { SortConfig, FilterConfig, GridColumnConfig } from '@/types/smartgrid';
+import { SortConfig, FilterConfig, GridColumnConfig } from '@/types/smartGrid';
 
 export function useSmartGridState() {
   const [gridData, setGridData] = useState<any[]>([]);

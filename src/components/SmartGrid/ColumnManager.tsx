@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { Settings, GripVertical, Edit2, Eye, EyeOff, ChevronDown } from 'lucide-react';
-import { Column, GridPreferences } from '@/types/smartgrid';
+import { Column, GridPreferences } from '@/types/smartGrid';
 
 interface ColumnManagerProps<T> {
   columns: Column<T>[];

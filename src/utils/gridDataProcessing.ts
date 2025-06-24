@@ -1,5 +1,5 @@
 
-import { GridColumnConfig, SortConfig, FilterConfig } from '@/types/smartgrid';
+import { GridColumnConfig, SortConfig, FilterConfig } from '@/types/smartGrid';
 
 export function processGridData(
   gridData: any[],

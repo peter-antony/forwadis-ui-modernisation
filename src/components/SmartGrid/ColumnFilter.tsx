@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Filter, X } from 'lucide-react';
-import { GridColumnConfig, FilterConfig } from '@/types/smartgrid';
+import { GridColumnConfig, FilterConfig } from '@/types/smartGrid';
 import { cn } from '@/lib/utils';
 
 interface ColumnFilterProps {

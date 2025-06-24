@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ColumnVisibilityManager } from './ColumnVisibilityManager';
-import { GridColumnConfig, GridPreferences } from '@/types/smartgrid';
+import { GridColumnConfig, GridPreferences } from '@/types/smartGrid';
 import { ConfigurableButton, ConfigurableButtonConfig } from '@/components/ui/configurable-button';
 
 interface GridToolbarProps {

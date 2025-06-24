@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Info } from 'lucide-react';
-import { GridColumnConfig } from '@/types/smartgrid';
+import { GridColumnConfig } from '@/types/smartGrid';
 import { cn } from '@/lib/utils';
 
 interface CellRendererProps {

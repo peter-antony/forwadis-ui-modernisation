@@ -1,5 +1,5 @@
 
-import { GridColumnConfig, GridPreferences, GridPlugin } from '@/types/smartgrid';
+import { GridColumnConfig, GridPreferences, GridPlugin } from '@/types/smartGrid';
 
 export function calculateColumnWidths(
   visibleColumns: GridColumnConfig[],

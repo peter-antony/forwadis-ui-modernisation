@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { GridPlugin, GridAPI } from '@/types/smartgrid';
+import { GridPlugin, GridAPI } from '@/types/smartGrid';
 
 interface PluginRendererProps {
   plugins: GridPlugin[];

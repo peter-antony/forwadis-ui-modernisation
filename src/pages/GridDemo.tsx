@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SmartGrid } from '@/components/SmartGrid';
-import { GridColumnConfig } from '@/types/smartgrid';
+import { GridColumnConfig } from '@/types/smartGrid';
 import { Button } from '@/components/ui/button';
 import { Printer, MoreHorizontal, User, Train, UserCheck, Container, Plus, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';

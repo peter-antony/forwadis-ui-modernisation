@@ -12,7 +12,7 @@ export { FilterSystem } from './FilterSystem';
 export { ColumnFilterInput } from './ColumnFilterInput';
 export { FilterSetModal } from './FilterSetModal';
 export { FilterSetDropdown } from './FilterSetDropdown';
-export * from '@/types/smartgrid';
+export * from '@/types/smartGrid';
 export * from '@/hooks/useSmartGridData';
 export * from '@/hooks/useGridPreferences';
 export * from '@/hooks/useSmartGridState';

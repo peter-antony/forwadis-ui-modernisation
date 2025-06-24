@@ -1,5 +1,5 @@
 
-import { GridColumnConfig } from '@/types/smartgrid';
+import { GridColumnConfig } from '@/types/smartGrid';
 
 export function exportToCSV(
   data: any[],

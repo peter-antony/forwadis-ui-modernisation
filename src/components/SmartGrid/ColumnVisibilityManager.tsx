@@ -19,7 +19,7 @@ import {
   X,
   Rows3
 } from 'lucide-react';
-import { GridColumnConfig, GridPreferences } from '@/types/smartgrid';
+import { GridColumnConfig, GridPreferences } from '@/types/smartGrid';
 import { cn } from '@/lib/utils';
 
 interface ColumnVisibilityManagerProps {
