@@ -10,7 +10,7 @@ interface AppSidebarProps {
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed = false }) => {
   const menuItems = [
     { icon: Home, label: 'Home', active: true, path: '/dashboard' },
-    { icon: Package, label: 'Inventory', active: false, path: '/grid-demo' },
+    { icon: Package, label: 'Inventory', active: false, path: '/quick-order' },
     // { icon: IdCard, label: 'Quick Billing', active: false, path: '/quick-billing' },
     { icon: MapPin, label: 'Route Management', active: false, path: '/trip-execution' },
     { icon: Truck, label: 'Fleet Management', active: false, path: '/' },
