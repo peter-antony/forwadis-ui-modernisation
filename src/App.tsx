@@ -11,6 +11,8 @@ import NotFound from "./pages/NotFound";
 import { ROUTES } from "./config/app.config";
 import Dashboard from "./pages/Dashboard";
 import QuickOrderManagement from "./pages/QuickOrderManagement";
+import DynamicPanelDemo from "./pages/DynamicPanelDemo";
+import TripPlansSearchHub from "./pages/TripPlansSearchHub";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,10 +45,12 @@ const App = () => {
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path={ROUTES.HOME} element={<Dashboard />} />
-                <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+                <Route path={ROUTES.HOME} element={<QuickOrderManagement />} />
+                {/* <Route path={ROUTES.DASHBOARD} element={<Dashboard />} /> */}
                 <Route path="/quick-order" element={<QuickOrderManagement />} />
                 <Route path="/trip-execution" element={<TripExecutionManagement />} />
+                <Route path="/trip-plans-search-hub" element={<TripPlansSearchHub />} />
+                <Route path="/dynamic-panel-demo" element={<DynamicPanelDemo />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

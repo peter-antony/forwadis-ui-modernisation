@@ -12,7 +12,7 @@ interface BreadcrumbProps {
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
-    <div className="flex items-center gap-2 text-sm text-blue-500 mb-6">
+    <div className="flex items-center gap-2 text-sm font-medium text-blue-500 mb-4">
       {items.map((item, index) => (
         <div key={index} className='flex gap-2 items-center cursor-pointer'>
           {item.label === 'Home' && <Home size={16} className="me-1" />}

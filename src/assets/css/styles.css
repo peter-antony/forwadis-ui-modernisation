@@ -3,6 +3,15 @@ body{
   font-family: inter;
 }
 
+:root{
+  --gray-bg: #F2F4F7;
+  --font-color-100: #D0D5DD;
+  --text-gray-600: #475467;
+}
+
+.font-color-100{
+  color: var(--font-color-100);
+}
 .headerDivider{
     width: 1px;
     height: 26px;
@@ -10,13 +19,17 @@ body{
 .profilePic{
     width: 32px;
     height: 32px;
+    border-radius: 50%;
+}
+.searchBG{
+  background-color: var(--gray-bg);
 }
 .text-blue-500{
     --tw-text-opacity: 1;
     color: #0073E6;
 }
 .text-gray-600{
-    color: #475467;
+    color: var(--text-gray-600);
 }
 .text-sm{
     font-size: 13px;
@@ -102,6 +115,12 @@ body{
     font-size: 11px;
     font-weight: 500;
 }
-
+.smart-grid-row-selected {
+  background-color: #eff6ff !important;
+  border-left: 4px solid #3b82f6 !important;
+}
+.smart-grid-row-selected:hover {
+  background-color: #dbeafe !important;
+}
 
 

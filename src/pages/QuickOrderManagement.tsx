@@ -457,15 +457,6 @@ const QuickOrderManagement = () => {
 
           {/* Grid Container */}
           <div className="bg-white rounded-lg shadow-sm">
-            <style>{`
-              .smart-grid-row-selected {
-                background-color: #eff6ff !important;
-                border-left: 4px solid #3b82f6 !important;
-              }
-              .smart-grid-row-selected:hover {
-                background-color: #dbeafe !important;
-              }
-            `}</style>
             <SmartGrid
               key={`grid-${gridState.forceUpdate}`}
               columns={gridState.columns}

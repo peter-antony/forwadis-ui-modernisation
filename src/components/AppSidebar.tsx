@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Calendar, Package, Truck, Users, IdCard, Fence, BarChart3, Settings, MapPin, HelpCircle } from 'lucide-react';
+import { Home, Calendar, Package, Truck, Users, IdCard, Fence, BarChart3, Settings, MapPinned, HelpCircle } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 interface AppSidebarProps {
@@ -9,11 +9,11 @@ interface AppSidebarProps {
 
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed = false }) => {
   const menuItems = [
-    { icon: Home, label: 'Home', active: true, path: '/dashboard' },
+    { icon: Home, label: 'Home', active: true, path: '/quick-order' },
     { icon: Package, label: 'Inventory', active: false, path: '/quick-order' },
     // { icon: IdCard, label: 'Quick Billing', active: false, path: '/quick-billing' },
-    { icon: MapPin, label: 'Route Management', active: false, path: '/trip-execution' },
-    { icon: Truck, label: 'Fleet Management', active: false, path: '/' },
+    { icon: MapPinned, label: 'Route Management', active: false, path: '/trip-plans-search-hub' },
+    { icon: Truck, label: 'Fleet Management', active: false, path: '/dynamic-panel-demo' },
     // { icon: Fence, label: 'Panel', active: false, path: '/dynamic-panel' },
   ];
 
