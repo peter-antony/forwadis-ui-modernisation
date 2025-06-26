@@ -67,7 +67,7 @@ export function GridToolbar({
   gridTitle,
   recordCount,
   showCreateButton = false,
-  searchPlaceholder = "Search all columns..."
+  searchPlaceholder = "Search"
 }: GridToolbarProps) {
   // Default configurable button configuration
   const defaultConfigurableButton: ConfigurableButtonConfig = {
@@ -82,17 +82,17 @@ export function GridToolbar({
     : (showDefaultConfigurableButton ? [defaultConfigurableButton] : []);
 
   return (
-    <div className="flex items-center justify-between w-full py-2 bg-gray-50">
+    <div className="flex items-center justify-between w-full py-1 mb-4 bg-gray-50">
       {/* Left side - Grid Title and Count */}
       <div className="flex items-center">
         {gridTitle && (
           <div className="flex items-center">
-            <span className="text-gray-900 font-semibold text-sm">
+            <span className="text-gray-900 font-semibold text-lg">
               {gridTitle}
             </span>
             {recordCount !== undefined && (
               <span 
-                className="inline-flex items-center justify-center rounded-full bg-blue-50 text-blue-500 text-xs px-2 py-0.5 ml-1"
+                className="inline-flex items-center justify-center rounded-full bg-blue-50 text-blue-500 text-xs px-2 py-1 ml-3 border font-medium border-blue-200"
                 aria-label={`${gridTitle} count ${recordCount}`}
               >
                 {recordCount}
@@ -110,17 +110,17 @@ export function GridToolbar({
       </div>
 
       {/* Right side - Controls */}
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-3">
         {/* Search box */}
         <div className="relative">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
             placeholder={searchPlaceholder}
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="border border-gray-300 rounded text-sm placeholder-gray-400 px-2 py-1 pl-8 w-64 h-8"
+            className="border border-gray-300 rounded text-sm placeholder-gray-400 px-2 py-1 pl-3 w-64 h-9 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={loading}
           />
+          <Search className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
         </div>
 
         {/* Icon buttons */}
@@ -131,11 +131,11 @@ export function GridToolbar({
           disabled={loading}
           title="Toggle Column Filters"
           className={cn(
-            "w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 p-0",
+            "w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 p-0 border border-gray-300",
             showColumnFilters && "bg-blue-50 text-blue-600"
           )}
         >
-          <Filter className="h-4 w-4" />
+          <Filter className="h-4 w-4 text-gray-600" />
           {filters.length > 0 && (
             <span className="absolute -top-1 -right-1 text-xs bg-blue-500 text-white rounded-full w-4 h-4 flex items-center justify-center">
               {filters.length}
@@ -150,11 +150,11 @@ export function GridToolbar({
           disabled={loading}
           title="Toggle Checkboxes"
           className={cn(
-            "w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 p-0",
+            "w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 p-0 border border-gray-300",
             showCheckboxes && "bg-blue-50 text-blue-600"
           )}
         >
-          <CheckSquare className="h-4 w-4" />
+          <CheckSquare className="h-4 w-4 text-gray-600" />
         </Button>
 
         <Button 
@@ -164,14 +164,14 @@ export function GridToolbar({
           disabled={loading}
           title={`Switch to ${viewMode === 'table' ? 'Card' : 'Table'} View`}
           className={cn(
-            "w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 p-0",
+            "w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 p-0 border border-gray-300",
             viewMode === 'card' && "bg-blue-50 text-blue-600"
           )}
         >
           {viewMode === 'table' ? (
-            <Grid2x2 className="h-4 w-4" />
+            <Grid2x2 className="h-4 w-4 text-gray-600" />
           ) : (
-            <List className="h-4 w-4" />
+            <List className="h-4 w-4 text-gray-600" />
           )}
         </Button>
 
@@ -191,9 +191,9 @@ export function GridToolbar({
           onClick={onResetToDefaults} 
           disabled={loading}
           title="Reset All"
-          className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 p-0"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 p-0 border border-gray-300"
         >
-          <RotateCcw className="h-4 w-4" />
+          <RotateCcw className="h-4 w-4 text-gray-600" />
         </Button>
         
         <Button 
@@ -202,9 +202,9 @@ export function GridToolbar({
           onClick={() => onExport('csv')} 
           disabled={loading}
           title="Download CSV"
-          className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 p-0"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 p-0 border border-gray-300"
         >
-          <Download className="h-4 w-4" />
+          <Download className="h-4 w-4 text-gray-600" />
         </Button>
 
         {/* Create Button */}
@@ -212,7 +212,7 @@ export function GridToolbar({
           <Button
             variant="outline"
             size="sm"
-            className="border border-blue-500 text-blue-500 rounded px-3 py-1 text-sm hover:bg-blue-50 h-8 ml-2"
+            className="border border-blue-500 text-blue-500 rounded-lg px-3 py-1 text-sm hover:bg-blue-50 h-8 ml-2"
           >
             <Plus className="h-4 w-4 mr-1" />
             Create Trip

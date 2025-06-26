@@ -4,6 +4,7 @@ body{
 }
 
 :root{
+  --body-bg: #F8F9FC;
   --gray-bg: #F2F4F7;
   --font-color-100: #D0D5DD;
   --text-gray-600: #475467;
@@ -26,10 +27,13 @@ body{
 }
 .text-blue-500{
     --tw-text-opacity: 1;
-    color: #0073E6;
+    color: #0068CF;
 }
 .text-gray-600{
     color: var(--text-gray-600);
+}
+.mt-4 {
+  margin-top: 1rem !important;
 }
 .text-sm{
     font-size: 13px;
