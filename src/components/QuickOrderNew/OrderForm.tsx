@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { CalendarIcon, Search } from 'lucide-react';
+import { CalendarIcon, Search, CircleArrowOutUpRight  } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,6 +10,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { SimpleDropDown } from '../Common/SimpleDropDown';
+import { InputDropDown } from '../Common/InputDropDown';
 
 interface OrderFormProps {
   onSaveDraft: () => void;
@@ -27,14 +28,103 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
     cluster: '',
     customerOrderNo: '',
     customerRefNo: '',
-    qcUserDefined: '',
     qcValue: '',
     remarks: '',
     summary: ''
   });
+  onConfirm = () => {
+    console.log("FORM DATA : ", formData);
+  }
+  //Contracts Array
+  const contracts = [
+    {
+      "id": 1,
+      "name": "DB Cargo",
+      "seqNo": 1,   // Optional
+      "default": "Y",   // Optional
+      "description": "db-cargo" // Optional
+    },
+    {
+      "id": 2,
+      "name": "Rail Freight",
+      "seqNo": 2,
+      "default": "N",
+      "description": "rail-freight"
+    },
+    {
+      "id": 3,
+      "name": "Express Logistics",
+      "seqNo": 3,
+      "default": "N",
+      "description": "express-logistics"
+    }
 
+  ]
+  //Customers Array
+  const customers = [
+    {
+      "id": 1,
+      "name": "DB Cargo",
+      "seqNo": 1,   // Optional
+      "default": "Y",   // Optional
+      "description": "db-cargo" // Optional
+    },
+    {
+      "id": 2,
+      "name": "Global Logistics",
+      "seqNo": 2,
+      "default": "N",
+      "description": "global-logistics"
+    },
+    {
+      "id": 3,
+      "name": "Freight Solutions",
+      "seqNo": 3,
+      "default": "N",
+      "description": "freight-solutions"
+    }
+
+  ]
+  //QC List Array
+  const QCList = [
+    {
+      "id": 1,
+      "name": "QC",
+      "seqNo": 1,   // Optional
+      "default": "Y",   // Optional
+      "description": "qc" // Optional
+    },
+    {
+      "id": 2,
+      "name": "Quality",
+      "seqNo": 2,
+      "default": "N",
+      "description": "quality"
+    },
+    {
+      "id": 3,
+      "name": "Control",
+      "seqNo": 3,
+      "default": "N",
+      "description": "control"
+    }
+
+  ]
+  const [inputValue, setInputValue] = useState("");
+  const [selectedQC, setSelectedQC] = useState("QC");
+  const [qcDropdown, setQcDropdown] = useState('QC');
+  const [qcInput, setQcInput] = useState('');
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleQcChange = (dropdownValue: string, inputValue: string) => {
+    setQcDropdown(dropdownValue);
+    setQcInput(inputValue);
+    setFormData(prev => ({
+      ...prev,
+      qcValue: `${dropdownValue}-${inputValue}`
+    }));
   };
 
   const isFormValid = () => {
@@ -44,7 +134,7 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Details</h2>
-      
+
       <div className="space-y-6">
         {/* Order Type */}
         <div>
@@ -102,35 +192,32 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
             <Label htmlFor="contract" className="text-sm font-medium text-gray-700 mb-2 block">
               Contract
             </Label>
-            <Select value={formData.contract} onValueChange={(value) => handleInputChange('contract', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="DB Cargo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="db-cargo">DB Cargo</SelectItem>
-                <SelectItem value="rail-freight">Rail Freight</SelectItem>
-                <SelectItem value="express-logistics">Express Logistics</SelectItem>
-              </SelectContent>
-            </Select>
+            <SimpleDropDown list={contracts} value={formData.contract}
+              onValueChange={value => handleInputChange('contract', value)} />
           </div>
 
           {/* Customer */}
-          <div>
-            <Label htmlFor="customer" className="text-sm font-medium text-gray-700 mb-2 block">
-              Customer
-            </Label>
-            <Select value={formData.customer} onValueChange={(value) => handleInputChange('customer', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="DB Cargo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="db-cargo">DB Cargo</SelectItem>
-                <SelectItem value="global-logistics">Global Logistics</SelectItem>
-                <SelectItem value="freight-solutions">Freight Solutions</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
+          {
+            orderType === "buy" && (
+              <div>
+                <Label htmlFor="customer" className="text-sm font-medium text-gray-700 mb-2 block">
+                  Customer
+                </Label>
+                <SimpleDropDown list={customers} value={formData.customer} onValueChange={value => handleInputChange('customer', value)} />
+              </div>
+            )
+          }
+          {/* Vendor */}
+          {
+            orderType === "sell" && (
+              <div>
+                <Label htmlFor="customer" className="text-sm font-medium text-gray-700 mb-2 block">
+                  Vendor
+                </Label>
+                <SimpleDropDown list={customers} value={formData.customer} onValueChange={value => handleInputChange('customer', value)} />
+              </div>
+            )
+          }
           {/* Cluster */}
           <div>
             <Label htmlFor="cluster" className="text-sm font-medium text-gray-700 mb-2 block">
@@ -145,61 +232,55 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
           </div>
 
           {/* Customer Internal Order No */}
-          <div>
-            <Label htmlFor="customer-order-no" className="text-sm font-medium text-gray-700 mb-2 block">
-              Customer Internal Order No.
+          {
+            orderType === "buy" && (
+              <div className="col-span-full ">
+                <Label htmlFor="customer-order-no" className="text-sm font-medium text-gray-700 mb-2 block">
+                  Customer Internal Order No.
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="customer-order-no"
+                    placeholder="IO/0000000042"
+                    value={formData.customerOrderNo}
+                    onChange={(e) => handleInputChange('customerOrderNo', e.target.value)}
+                    className="pr-10"
+                  />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                </div>
+              </div>
+            )
+          }
+          {/* Customer/Supplier Ref. No. and QC Userdefined 1 on the same line */}
+          <div >
+            <Label htmlFor="customer-ref-no" className="text-sm font-medium text-gray-700 mb-2 block">
+              Customer/ Supplier Ref. No.
             </Label>
             <div className="relative">
               <Input
-                id="customer-order-no"
-                placeholder="IO/0000000042"
-                value={formData.customerOrderNo}
-                onChange={(e) => handleInputChange('customerOrderNo', e.target.value)}
-                className="pr-10"
+                id="customer-ref-no"
+                placeholder="Enter Ref. No."
+                value={formData.customerRefNo}
+                onChange={(e) => handleInputChange('customerRefNo', e.target.value)}
+                className="px-3 py-2 pr-10"
               />
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             </div>
           </div>
-
-          {/* Customer/Supplier Ref. No. */}
-          <div>
-            <Label htmlFor="customer-ref-no" className="text-sm font-medium text-gray-700 mb-2 block">
-              Customer/ Supplier Ref. No.
-            </Label>
-            <Input
-              id="customer-ref-no"
-              placeholder="Enter Ref. No."
-              value={formData.customerRefNo}
-              onChange={(e) => handleInputChange('customerRefNo', e.target.value)}
-            />
-          </div>
-
-          {/* QC Userdefined 1 */}
-          <div className="md:col-span-2">
+          <div >
             <Label className="text-sm font-medium text-gray-700 mb-2 block">
               QC Userdefined 1
             </Label>
-            <div className="flex gap-3">
-              <Select value={formData.qcUserDefined} onValueChange={(value) => handleInputChange('qcUserDefined', value)}>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="QC" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="qc">QC</SelectItem>
-                  <SelectItem value="quality">Quality</SelectItem>
-                  <SelectItem value="control">Control</SelectItem>
-                </SelectContent>
-              </Select>
-              <Input
-                placeholder="Enter Value"
-                value={formData.qcValue}
-                onChange={(e) => handleInputChange('qcValue', e.target.value)}
-                className="flex-1"
-              />
-            </div>
+            <InputDropDown
+              label="QC Userdefined 1"
+              dropdownOptions={['QC', 'QA', 'Test']}
+              selectedOption={qcDropdown}
+              onOptionChange={option => handleQcChange(option, qcInput)}
+              value={qcInput}
+              onValueChange={val => handleQcChange(qcDropdown, val)}
+            />
           </div>
         </div>
-
         {/* Remarks */}
         <div>
           <Label htmlFor="remarks" className="text-sm font-medium text-gray-700 mb-2 block">
@@ -231,13 +312,9 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
 
       {/* Form Actions */}
       <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
-        <Button
-          variant="outline"
-          onClick={onCancel}
-          className="text-gray-600 hover:text-gray-800"
-        >
-          Cancel
-        </Button>
+        <button className="p-2 rounded-md border border-gray-200 hover:bg-gray-100">
+          <CircleArrowOutUpRight  className="w-5 h-5 text-gray-400" />
+        </button>
         <Button
           variant="outline"
           onClick={onSaveDraft}

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { X, Search, Calendar, Clock } from 'lucide-react';
+import { X, Search, Calendar, Clock, Bookmark, Banknote, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,34 +47,25 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
 
   // Basic Details Panel Configuration
   const basicDetailsConfig: PanelConfig = {
-    tripPlanNo: {
-      id: 'tripPlanNo',
-      label: 'Trip Plan No',
-      fieldType: 'text',
-      value: 'TRIP00000001',
-      mandatory: true,
-      visible: true,
-      editable: false,
-      order: 1
-    },
-    customerName: {
-      id: 'customerName',
-      label: 'Customer Name',
+    resource: {
+      id: 'resource',
+      label: 'Resource',
       fieldType: 'select',
       value: '',
-      mandatory: true,
+      mandatory: false,
       visible: true,
       editable: true,
       order: 2,
       options: [
-        { label: 'DB Cargo', value: 'db-cargo' },
-        { label: 'ABC Rail Goods', value: 'abc-rail' },
-        { label: 'Wave Cargo', value: 'wave-cargo' }
+        { label: 'Vehicle', value: 'vehicle' },
+        { label: 'Equipment', value: 'equipment' },
+        { label: 'Material', value: 'material' },
+        { label: 'Other', value: 'other' }
       ]
     },
-    contractType: {
-      id: 'contractType',
-      label: 'Contract Type',
+    resourceType: {
+      id: 'resourceType',
+      label: 'Resource Type',
       fieldType: 'select',
       value: '',
       mandatory: false,
@@ -82,25 +73,28 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
       editable: true,
       order: 3,
       options: [
-        { label: 'Fixed Price', value: 'fixed' },
-        { label: 'Variable', value: 'variable' },
-        { label: 'Cost Plus', value: 'cost-plus' }
+        { label: 'Truck 4.2', value: 'truck-4.2' },
+        { label: 'Truck 4.5', value: 'truck-4.5' },
+        { label: 'Truck 5.2', value: 'truck-5.2' },
       ]
     },
-    description: {
-      id: 'description',
-      label: 'Description',
-      fieldType: 'textarea',
+    serviceType: {
+      id: 'serviceType',
+      label: 'Service Type',
+      fieldType: 'select',
       value: '',
       mandatory: false,
       visible: true,
       editable: true,
       order: 4,
-      placeholder: 'Enter trip description...'
+      options: [
+        { label: 'Block Train Conventional', value: 'Block Train Conventional' },
+        { label: 'Block Train Convention', value: 'Block Train Convention' },
+      ]
     },
-    priority: {
-      id: 'priority',
-      label: 'Priority',
+    subservice: {
+      id: 'sub-service',
+      label: 'Sub-Service',
       fieldType: 'select',
       value: '',
       mandatory: false,
@@ -108,9 +102,9 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
       editable: true,
       order: 5,
       options: [
-        { label: 'High', value: 'high' },
-        { label: 'Medium', value: 'medium' },
-        { label: 'Low', value: 'low' }
+        { label: 'Repair', value: 'repair' },
+        { label: 'Maintenance', value: 'maintenance' },
+        { label: 'Other', value: 'other' }
       ]
     }
   };
@@ -356,6 +350,7 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                         <DynamicPanel
                           panelId="basic-details"
                           panelTitle={basicDetailsTitle}
+                          panelIcon={<Wrench className="w-5 h-5 text-lime-500" />}
                           panelConfig={basicDetailsConfig}
                           initialData={basicDetailsData}
                           onDataChange={setBasicDetailsData}
@@ -372,6 +367,7 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                         <DynamicPanel
                           panelId="operational-details"
                           panelTitle={operationalDetailsTitle}
+                          panelIcon={<Bookmark className="w-5 h-5 text-blue-500" />}
                           panelConfig={operationalDetailsConfig}
                           initialData={operationalDetailsData}
                           onDataChange={setOperationalDetailsData}
@@ -390,6 +386,7 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                         <DynamicPanel
                           panelId="billing-details"
                           panelTitle={billingDetailsTitle}
+                          panelIcon={<Banknote className="w-5 h-5 text-orange-500" />}
                           panelConfig={billingDetailsConfig}
                           initialData={billingDetailsData}
                           onDataChange={setBillingDetailsData}
