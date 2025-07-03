@@ -111,93 +111,97 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
 
   // Operational Details Panel Configuration
   const operationalDetailsConfig: PanelConfig = {
-    plannedStartDate: {
-      id: 'plannedStartDate',
-      label: 'Planned Start Date',
-      fieldType: 'date',
+    operationalLocation: {
+      id: 'operationalLocation',
+      label: 'Operational Location',
+      fieldType: 'search',
       value: '',
-      mandatory: true,
+      mandatory: false,
       visible: true,
       editable: true,
-      order: 1
-    },
-    plannedStartTime: {
-      id: 'plannedStartTime',
-      label: 'Planned Start Time',
-      fieldType: 'time',
-      value: '',
-      mandatory: true,
-      visible: true,
-      editable: true,
-      order: 2
-    },
-    plannedEndDate: {
-      id: 'plannedEndDate',
-      label: 'Planned End Date',
-      fieldType: 'date',
-      value: '',
-      mandatory: true,
-      visible: true,
-      editable: true,
-      order: 3
-    },
-    plannedEndTime: {
-      id: 'plannedEndTime',
-      label: 'Planned End Time',
-      fieldType: 'time',
-      value: '',
-      mandatory: true,
-      visible: true,
-      editable: true,
-      order: 4
+      order: 1,
+      placeholder: 'Search operational location...'
     },
     departurePoint: {
       id: 'departurePoint',
       label: 'Departure Point',
-      fieldType: 'search',
+      fieldType: 'select',
       value: '',
-      mandatory: true,
+      mandatory: false,
       visible: true,
       editable: true,
-      order: 5,
-      placeholder: 'Search departure location...'
+      order: 2,
+      options: [
+        { label: '10-000471', value: '10-000471' },
+        { label: '10-000481', value: '10-000481' },
+        { label: '10-000491', value: '10-000491' }
+      ]
     },
     arrivalPoint: {
       id: 'arrivalPoint',
       label: 'Arrival Point',
-      fieldType: 'search',
+      fieldType: 'select',
       value: '',
-      mandatory: true,
+      mandatory: false,
       visible: true,
       editable: true,
-      order: 6,
-      placeholder: 'Search arrival location...'
+      order: 3,
+      options: [
+        { label: '10-000720', value: '10-000720' },
+        { label: '10-000721', value: '10-000721' },
+        { label: '10-000722', value: '10-000722' }
+      ]
     },
-    distance: {
-      id: 'distance',
-      label: 'Distance (km)',
-      fieldType: 'text',
+    fromDate: {
+      id: 'fromDate',
+      label: 'From Date',
+      fieldType: 'date',
+      value: '',
+      mandatory: false,
+      visible: true,
+      editable: true,
+      order: 4
+    },
+    fromTime: {
+      id: 'fromTime',
+      label: 'From Time',
+      fieldType: 'time',
+      value: '',
+      mandatory: false,
+      visible: true,
+      editable: true,
+      order: 5
+    },
+    toDate: {
+      id: 'toDate',
+      label: 'To Date',
+      fieldType: 'date',
+      value: '',
+      mandatory: false,
+      visible: true,
+      editable: true,
+      order: 6
+    },
+    toTime: {
+      id: 'toTime',
+      label: 'To Time',
+      fieldType: 'time',
       value: '',
       mandatory: false,
       visible: true,
       editable: true,
       order: 7
     },
-    trainType: {
-      id: 'trainType',
-      label: 'Train Type',
-      fieldType: 'select',
+    remarks: {
+      id: 'remarks',
+      label: 'Remarks',
+      fieldType: 'text',
       value: '',
       mandatory: false,
       visible: true,
       editable: true,
-      order: 8,
-      options: [
-        { label: 'Freight', value: 'freight' },
-        { label: 'Passenger', value: 'passenger' },
-        { label: 'Mixed', value: 'mixed' }
-      ]
-    }
+      order: 8
+    },
   };
 
   // Billing Details Panel Configuration
@@ -333,8 +337,8 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 bg-gray-50 p-6 overflow-y-auto">
-              <SheetHeader className="mb-6">
+            <div className="flex-1 bg-gray-50 px-6 py-4 overflow-y-auto">
+              <SheetHeader className="mb-4">
                 <div className="flex items-center justify-between">
                   <SheetTitle className="text-lg font-semibold">Resource Group Creation</SheetTitle>
                 </div>

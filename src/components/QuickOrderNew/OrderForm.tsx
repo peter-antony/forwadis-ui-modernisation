@@ -167,12 +167,12 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
                 <Button
                   variant="outline"
                   className={cn(
-                    "w-full justify-start text-left font-normal",
+                    "w-full justify-start text-left font-normal relative",
                     !orderDate && "text-muted-foreground"
                   )}
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
                   {orderDate ? format(orderDate, "dd/MM/yyyy") : "Select date"}
+                  <CalendarIcon className="mr-2 h-4 w-4 absolute right-1" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
