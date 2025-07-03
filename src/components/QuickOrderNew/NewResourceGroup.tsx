@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ResourceGroupDrawer from './ResourceGroupDrawer';
+import ResourceGroupDetails from './ResourceGroupDetails';
 
-interface ResourceGroupPanelProps {
+interface NewResourceGroupProps {
   onAddResource: () => void;
 }
 
-const ResourceGroupPanel = ({ onAddResource }: ResourceGroupPanelProps) => {
+const NewResourceGroup = ({ onAddResource }: NewResourceGroupProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleAddClick = () => {
@@ -18,7 +18,7 @@ const ResourceGroupPanel = ({ onAddResource }: ResourceGroupPanelProps) => {
 
   return (
     <>
-      <div className="bg-white rounded-lg border border-gray-200 p-8 flex flex-col items-center justify-center min-h-[400px]">
+      <div className="rounded-lg p-8 flex flex-col items-center justify-center min-h-[550px]">
         <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
           <Plus className="w-10 h-10 text-blue-500" />
         </div>
@@ -37,7 +37,7 @@ const ResourceGroupPanel = ({ onAddResource }: ResourceGroupPanelProps) => {
         </Button>
       </div>
 
-      <ResourceGroupDrawer 
+      <ResourceGroupDetails 
         open={isDrawerOpen} 
         onClose={() => setIsDrawerOpen(false)} 
       />
@@ -45,4 +45,4 @@ const ResourceGroupPanel = ({ onAddResource }: ResourceGroupPanelProps) => {
   );
 };
 
-export default ResourceGroupPanel;
+export default NewResourceGroup;

@@ -5,9 +5,7 @@ import { PanelConfig, PanelSettings } from '@/types/dynamicPanel';
 import { EyeOff } from 'lucide-react';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { AppLayout } from '@/components/AppLayout';
-import OrderForm from '@/components/OrderForm';
-import ResourceGroupPanel from '@/components/ResourceGroupPanel';
-import { toast } from 'sonner';
+import NewCreateQuickOrder from '@/components/QuickOrderNew/NewQuickOrder';
 
 
 const CreateQuickOrder = () => {
@@ -17,26 +15,6 @@ const CreateQuickOrder = () => {
     { label: 'Quick Order Management', href: '/quick-order', active: false },
     { label: 'Create Quick Order', active: true }
   ];
-  
-  const handleSaveDraft = () => {
-    toast.success('Order saved as draft successfully!');
-    console.log('Save draft clicked');
-  };
-
-  const handleConfirm = () => {
-    toast.success('Order confirmed successfully!');
-    console.log('Confirm order clicked');
-  };
-
-  const handleCancel = () => {
-    toast.info('Order creation cancelled');
-    console.log('Cancel clicked');
-  };
-
-  const handleAddResource = () => {
-    toast.success('Resource group functionality will be implemented next!');
-    console.log('Add resource group clicked');
-  };
 
   return (
     <AppLayout> 
@@ -46,20 +24,9 @@ const CreateQuickOrder = () => {
           <Breadcrumb items={breadcrumbItems} />
         </div>
         
-        <div className="flex gap-6">
-            {/* Left Column - Order Form */}
-            <div className="lg:col-span-1 w-2/5">
-            <OrderForm
-                onSaveDraft={handleSaveDraft}
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-            />
-            </div>
+        <div className="">
+            <NewCreateQuickOrder />
             
-            {/* Right Column - Resource Group Panel */}
-            <div className="lg:col-span-1 w-3/5">
-            <ResourceGroupPanel onAddResource={handleAddResource} />
-            </div>
         </div>
 
       </div>

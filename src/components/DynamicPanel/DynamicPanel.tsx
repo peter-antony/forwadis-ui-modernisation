@@ -30,7 +30,7 @@ export const DynamicPanel: React.FC<DynamicPanelProps> = ({
   const [currentPanelWidth, setCurrentPanelWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(panelWidth);
   const [isCollapsible, setIsCollapsible] = useState(collapsible);
   const [panelVisible, setPanelVisible] = useState(true);
-  const [showStatusIndicator, setShowStatusIndicator] = useState(true);
+  const [showStatusIndicator, setShowStatusIndicator] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [formData, setFormData] = useState(initialData);
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
@@ -53,7 +53,8 @@ export const DynamicPanel: React.FC<DynamicPanelProps> = ({
               setIsCollapsible(userSettings.collapsible);
             }
             if (userSettings.showStatusIndicator !== undefined) {
-              setShowStatusIndicator(userSettings.showStatusIndicator);
+              setShowStatusIndicator(false);
+              // setShowStatusIndicator(userSettings.showStatusIndicator);
             }
           }
         } catch (error) {

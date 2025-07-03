@@ -10,12 +10,12 @@ import { DynamicPanel } from '@/components/DynamicPanel';
 import { PanelConfig, PanelSettings } from '@/types/dynamicPanel';
 
 
-interface ResourceGroupDrawerProps {
+interface ResourceGroupDetailsProps {
   open: boolean;
   onClose: () => void;
 }
 
-const ResourceGroupDrawer = ({ open, onClose }: ResourceGroupDrawerProps) => {
+const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleProceedToNext = () => {
@@ -36,9 +36,9 @@ const ResourceGroupDrawer = ({ open, onClose }: ResourceGroupDrawerProps) => {
   const [billingDetailsTitle, setBillingDetailsTitle] = useState('Billing Details');
 
   // Panel widths state - updated for 12-column system
-  const [basicDetailsWidth, setBasicDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(12);
-  const [operationalDetailsWidth, setOperationalDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(6);
-  const [billingDetailsWidth, setBillingDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(6);
+  // const [basicDetailsWidth, setBasicDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(12);
+  // const [operationalDetailsWidth, setOperationalDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(6);
+  // const [billingDetailsWidth, setBillingDetailsWidth] = useState<'full' | 'half' | 'third' | 'quarter' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>(6);
 
   // Panel visibility state
   const [basicDetailsVisible, setBasicDetailsVisible] = useState(true);
@@ -349,54 +349,60 @@ const ResourceGroupDrawer = ({ open, onClose }: ResourceGroupDrawerProps) => {
               {currentStep === 1 && (
                 <div className="space-y-8">
                   {/* Basic Details Section */}
-                  <div className="grid grid-cols-12 gap-6">
-                    {basicDetailsVisible && (
-                      <DynamicPanel
-                        panelId="basic-details"
-                        panelTitle={basicDetailsTitle}
-                        panelConfig={basicDetailsConfig}
-                        initialData={basicDetailsData}
-                        onDataChange={setBasicDetailsData}
-                        onTitleChange={setBasicDetailsTitle}
-                        onWidthChange={setBasicDetailsWidth}
-                        getUserPanelConfig={getUserPanelConfig}
-                        saveUserPanelConfig={saveUserPanelConfig}
-                        userId="current-user"
-                        panelWidth={basicDetailsWidth}
-                      />
-                    )}
+                  {/* <div className="grid grid-cols-12 gap-6"> */}
+                  <div className="flex gap-6">
+                    <div className="w-3/5">
+                      {basicDetailsVisible && (
+                        <DynamicPanel
+                          panelId="basic-details"
+                          panelTitle={basicDetailsTitle}
+                          panelConfig={basicDetailsConfig}
+                          initialData={basicDetailsData}
+                          onDataChange={setBasicDetailsData}
+                          onTitleChange={setBasicDetailsTitle}
+                          // onWidthChange={setBasicDetailsWidth}
+                          getUserPanelConfig={getUserPanelConfig}
+                          saveUserPanelConfig={saveUserPanelConfig}
+                          userId="current-user"
+                          // panelWidth={basicDetailsWidth}
+                        />
+                      )}
 
-                    {operationalDetailsVisible && (
-                      <DynamicPanel
-                        panelId="operational-details"
-                        panelTitle={operationalDetailsTitle}
-                        panelConfig={operationalDetailsConfig}
-                        initialData={operationalDetailsData}
-                        onDataChange={setOperationalDetailsData}
-                        onTitleChange={setOperationalDetailsTitle}
-                        onWidthChange={setOperationalDetailsWidth}
-                        getUserPanelConfig={getUserPanelConfig}
-                        saveUserPanelConfig={saveUserPanelConfig}
-                        userId="current-user"
-                        panelWidth={operationalDetailsWidth}
-                      />
-                    )}
-
-                    {billingDetailsVisible && (
-                      <DynamicPanel
-                        panelId="billing-details"
-                        panelTitle={billingDetailsTitle}
-                        panelConfig={billingDetailsConfig}
-                        initialData={billingDetailsData}
-                        onDataChange={setBillingDetailsData}
-                        onTitleChange={setBillingDetailsTitle}
-                        onWidthChange={setBasicDetailsWidth}
-                        getUserPanelConfig={getUserPanelConfig}
-                        saveUserPanelConfig={saveUserPanelConfig}
-                        userId="current-user"
-                        panelWidth={billingDetailsWidth}
-                      />
-                    )}
+                      {operationalDetailsVisible && (
+                        <DynamicPanel
+                          panelId="operational-details"
+                          panelTitle={operationalDetailsTitle}
+                          panelConfig={operationalDetailsConfig}
+                          initialData={operationalDetailsData}
+                          onDataChange={setOperationalDetailsData}
+                          onTitleChange={setOperationalDetailsTitle}
+                          // onWidthChange={setOperationalDetailsWidth}
+                          getUserPanelConfig={getUserPanelConfig}
+                          saveUserPanelConfig={saveUserPanelConfig}
+                          userId="current-user"
+                          // panelWidth={operationalDetailsWidth}
+                        />
+                      )}
+                    </div>
+                    
+                    <div className="w-2/5">
+                      {billingDetailsVisible && (
+                        <DynamicPanel
+                          panelId="billing-details"
+                          panelTitle={billingDetailsTitle}
+                          panelConfig={billingDetailsConfig}
+                          initialData={billingDetailsData}
+                          onDataChange={setBillingDetailsData}
+                          onTitleChange={setBillingDetailsTitle}
+                          // onWidthChange={setBasicDetailsWidth}
+                          getUserPanelConfig={getUserPanelConfig}
+                          saveUserPanelConfig={saveUserPanelConfig}
+                          userId="current-user"
+                          // panelWidth={billingDetailsWidth}
+                        />
+                      )}
+                    </div>
+                    
                   </div>
 
                 </div>
@@ -429,4 +435,4 @@ const ResourceGroupDrawer = ({ open, onClose }: ResourceGroupDrawerProps) => {
   );
 };
 
-export default ResourceGroupDrawer;
+export default ResourceGroupDetails;
