@@ -192,7 +192,7 @@ export const DynamicPanel: React.FC<DynamicPanelProps> = ({
       <Collapsible open={isOpen} onOpenChange={setIsOpen} className={`${getWidthClass()}`}>
         <Card className="border border-gray-200 shadow-sm mb-6">
           <CollapsibleTrigger asChild>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-4 pt-4 cursor-pointer hover:bg-gray-50">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-4 border-b mb-4 cursor-pointer hover:bg-gray-50">
               <div className="flex items-center gap-2">
                 <div className="">{panelIcon}</div>
                 <CardTitle className="text-sm font-semibold text-gray-700">{panelTitle}</CardTitle>
@@ -253,7 +253,7 @@ export const DynamicPanel: React.FC<DynamicPanelProps> = ({
 
   return (
     <Card className={`${getWidthClass()} border border-gray-200 shadow-sm mb-6`}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-4 pt-4">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-4 border-b mb-4">
         <div className="flex items-center gap-2">
           <div className="">{panelIcon}</div>
           <CardTitle className="text-sm font-semibold text-gray-700">{panelTitle}</CardTitle>

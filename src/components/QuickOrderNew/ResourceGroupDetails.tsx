@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { X, Search, Calendar, Clock, Bookmark, Banknote, Wrench } from 'lucide-react';
+import { X, Search, Calendar, Clock, Bookmark, Banknote, Wrench, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { DynamicPanel } from '@/components/DynamicPanel';
 import { PanelConfig, PanelSettings } from '@/types/dynamicPanel';
+import { Card } from '@/components/ui/card';
+import { BillingDetailsPanel } from './BillingDetails';
+import { toast } from 'sonner';
 
 
 interface ResourceGroupDetailsProps {
@@ -22,7 +25,16 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
     setCurrentStep(2);
   };
 
+  const handleFirstStep = () => {
+    setCurrentStep(1);
+  };
+
+  const handleSecondStep = () => {
+    setCurrentStep(2);
+  };
+
   const handleSaveDetails = () => {
+    toast.success('Details saved successfully');
     console.log('Save details clicked');
   };
 
@@ -279,6 +291,18 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
     }
   };
 
+  const [billingData, setBillingData] = useState({
+    billingDetail: "DB00023/42",
+    contractPrice: 1200.00,
+    netAmount: 5580.00,
+    billingType: 'Wagon',
+    unitPrice: 1395.00,
+    billingQty: 4,
+    tariff: 'TAR000750 - Tariff Description',
+    tariffType: 'Rate Per Block Train',
+    remarks: ''
+  });
+
   // Mock functions for user config management
   const getUserPanelConfig = (userId: string, panelId: string): PanelSettings | null => {
     const stored = localStorage.getItem(`panel-config-${userId}-${panelId}`);
@@ -295,8 +319,13 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
       <SheetContent className="w-full p-0" side="right">
         <div className="w-full border-b bg-white">
           <div className="flex items-center justify-between px-3">
+            <div className="flex items-center space-x-2">
+              <Button className='rounded-full border m-2 h-8 w-8' variant="ghost" size="icon" onClick={onClose}>
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
             <h1 className="text-lg font-semibold">Resource Group Details</h1>
-            <Button variant="ghost" size="icon" onClick={onClose}>
+            </div>
+            <Button className='rounded-full border m-2 h-8 w-8' variant="ghost" size="icon" onClick={onClose}>
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -306,8 +335,8 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
           <div className="flex-1 flex">
             {/* Vertical Stepper */}
             <div className="w-64 p-6 border-r">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-3">
+              <div className="">
+                <div className="flex items-start space-x-3 cursor-pointer" onClick={handleFirstStep}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                     currentStep === 1 ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600'
                   }`}>
@@ -317,10 +346,11 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                     <h3 className={`text-sm font-medium ${currentStep === 1 ? 'text-blue-600' : 'text-gray-900'}`}>
                       Resource Group Creation
                     </h3>
+                    <p className={`text-xs ${currentStep === 1 ? 'text-blue-600' : 'text-gray-500'}`}>-</p>
                   </div>
                 </div>
-                
-                <div className="flex items-start space-x-3">
+                <div className="h-8 w-px bg-blue-600 mt-2 ml-4"></div>
+                <div className="flex items-start space-x-3 cursor-pointer mt-2" onClick={handleSecondStep}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                     currentStep === 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
                   }`}>
@@ -330,14 +360,14 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                     <h3 className={`text-sm font-medium ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
                       Plan and Actuals
                     </h3>
-                    <p className="text-xs text-gray-500 mt-1">Total Items: 0</p>
+                    <p className={`text-xs ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>Total Items: 0</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 bg-gray-50 px-6 py-4 overflow-y-auto">
+            <div className="flex-1 bg-gray-50 px-6 py-4 h-full overflow-y-auto">
               <SheetHeader className="mb-4">
                 <div className="flex items-center justify-between">
                   <SheetTitle className="text-lg font-semibold">Resource Group Creation</SheetTitle>
@@ -385,21 +415,19 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                       )}
                     </div>
                     
-                    <div className="w-2/5">
+                    <div className="w-2/5 rounded-lg bg-card text-card-foreground col-span-12 border border-gray-200 shadow-sm mb-24">
                       {billingDetailsVisible && (
-                        <DynamicPanel
+                        <BillingDetailsPanel
                           panelId="billing-details"
                           panelTitle={billingDetailsTitle}
                           panelIcon={<Banknote className="w-5 h-5 text-orange-500" />}
                           panelConfig={billingDetailsConfig}
-                          initialData={billingDetailsData}
-                          onDataChange={setBillingDetailsData}
+                          initialData={billingData}
+                          onDataChange={setBillingData}
                           onTitleChange={setBillingDetailsTitle}
-                          // onWidthChange={setBasicDetailsWidth}
                           getUserPanelConfig={getUserPanelConfig}
                           saveUserPanelConfig={saveUserPanelConfig}
                           userId="current-user"
-                          // panelWidth={billingDetailsWidth}
                         />
                       )}
                     </div>
@@ -414,22 +442,19 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
                   <p className="text-gray-500">Plan and Actuals content will be implemented here</p>
                 </div>
               )}
-
-              {/* Action Buttons */}
-              <div className="mt-8 flex justify-end space-x-3">
-                {currentStep === 1 && (
-                  <Button onClick={handleProceedToNext} className="bg-blue-600 hover:bg-blue-700">
-                    Proceed to Next
-                  </Button>
-                )}
-                <Button variant="outline" onClick={handleSaveDetails} className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                  Save Details
-                </Button>
-              </div>
             </div>
           </div>
-
-         
+        </div>
+        {/* Action Buttons */}
+        <div className="mt-2 w-full bg-white border-t flex justify-end space-x-3 absolute bottom-0 px-8">
+          {currentStep === 1 && ( 
+            <Button variant="outline" onClick={handleProceedToNext} className="h-8 my-2 rounded border-blue-600 text-blue-600 hover:bg-blue-50">
+              Proceed to Next
+            </Button>
+          )}
+          <Button onClick={handleSaveDetails} className="h-8 my-2 bg-blue-600 rounded hover:bg-blue-700">
+            Save Details
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
