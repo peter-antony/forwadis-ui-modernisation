@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { X, Search, Calendar, Clock, Bookmark, Banknote, Wrench, ArrowLeft } from 'lucide-react';
+import { X, Search, Calendar, Clock, Bookmark, Banknote, Wrench, ArrowLeft, FileText, BookmarkCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,14 +10,15 @@ import { PanelConfig, PanelSettings } from '@/types/dynamicPanel';
 import { Card } from '@/components/ui/card';
 import { BillingDetailsPanel } from './BillingDetails';
 import { toast } from 'sonner';
+import PlanActIcon from './../../assets/images/planAct.png';
 
+// interface ResourceGroupDetailsFormProps {
+//   open: boolean;
+//   onClose: () => void;
+// }
 
-interface ResourceGroupDetailsProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
+// const ResourceGroupDetailsForm = ({ open, onClose }: ResourceGroupDetailsFormProps) => {
+export const ResourceGroupDetailsForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleProceedToNext = () => {
@@ -31,6 +31,14 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
 
   const handleSecondStep = () => {
     setCurrentStep(2);
+  };
+
+  const bulkUploadFiles = () => {
+
+  };
+
+  const addPlanActuals = () => {
+
   };
 
   const handleSaveDetails = () => {
@@ -315,138 +323,151 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
   };
 
   return (
-    <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className="w-full p-0" side="right">
-        <div className="w-full border-b bg-white">
-          <div className="flex items-center justify-between px-3">
-            <div className="flex items-center space-x-2">
-              <Button className='rounded-full border m-2 h-8 w-8' variant="ghost" size="icon" onClick={onClose}>
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            <h1 className="text-lg font-semibold">Resource Group Details</h1>
-            </div>
-            <Button className='rounded-full border m-2 h-8 w-8' variant="ghost" size="icon" onClick={onClose}>
-              <X className="w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-        <div className="flex h-full">
-          {/* Left Side - Stepper and Main Content */}
-          <div className="flex-1 flex">
-            {/* Vertical Stepper */}
-            <div className="w-64 p-6 border-r">
-              <div className="">
-                <div className="flex items-start space-x-3 cursor-pointer" onClick={handleFirstStep}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                    currentStep === 1 ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600'
+    <div className="">
+      <div className="flex h-full">
+        {/* Left Side - Stepper and Main Content */}
+        <div className="flex-1 flex">
+          {/* Vertical Stepper */}
+          <div className="w-64 p-6 border-r">
+            <div className="">
+              <div className="flex items-start space-x-3 cursor-pointer" onClick={handleFirstStep}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${currentStep === 1 ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600'
                   }`}>
-                    1
-                  </div>
-                  <div className="flex-1">
-                    <h3 className={`text-sm font-medium ${currentStep === 1 ? 'text-blue-600' : 'text-gray-900'}`}>
-                      Resource Group Creation
-                    </h3>
-                    <p className={`text-xs ${currentStep === 1 ? 'text-blue-600' : 'text-gray-500'}`}>-</p>
-                  </div>
+                  1
                 </div>
-                <div className="h-8 w-px bg-blue-600 mt-2 ml-4"></div>
-                <div className="flex items-start space-x-3 cursor-pointer mt-2" onClick={handleSecondStep}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                    currentStep === 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+                <div className="flex-1">
+                  <h3 className={`text-sm font-medium ${currentStep === 1 ? 'text-blue-600' : 'text-gray-900'}`}>
+                    Resource Group Creation
+                  </h3>
+                  <p className={`text-xs ${currentStep === 1 ? 'text-blue-600' : 'text-gray-500'}`}>-</p>
+                </div>
+              </div>
+              <div className="h-8 w-px bg-blue-600 mt-2 ml-4"></div>
+              <div className="flex items-start space-x-3 cursor-pointer mt-2" onClick={handleSecondStep}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${currentStep === 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
                   }`}>
-                    2
-                  </div>
-                  <div className="flex-1">
-                    <h3 className={`text-sm font-medium ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
-                      Plan and Actuals
-                    </h3>
-                    <p className={`text-xs ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>Total Items: 0</p>
-                  </div>
+                  2
+                </div>
+                <div className="flex-1">
+                  <h3 className={`text-sm font-medium ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>
+                    Plan and Actuals
+                  </h3>
+                  <p className={`text-xs ${currentStep === 2 ? 'text-blue-600' : 'text-gray-500'}`}>Total Items: 0</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Main Content */}
-            <div className="flex-1 bg-gray-50 px-6 py-4 h-full overflow-y-auto">
-              <SheetHeader className="mb-4">
-                <div className="flex items-center justify-between">
-                  <SheetTitle className="text-lg font-semibold">Resource Group Creation</SheetTitle>
-                </div>
-              </SheetHeader>
+          {/* Main Content */}
+          <div className="flex-1 bg-gray-50 px-6 py-4 h-full overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              {currentStep === 1 && ( 
+                <>
+                  <h2 className="text-lg font-semibold">Resource Group Creation</h2> 
+                  <div className="flex items-center gap-4">
+                    <span className="rounded-lg border border-gray-300 p-2 hover:bg-gray-100">
+                      <BookmarkCheck className="w-5 h-5 text-gray-500 cursor-pointer" />
+                    </span>
+                    <span className="rounded-lg border border-gray-300 p-2 hover:bg-gray-100">
+                      <FileText className="w-5 h-5 text-gray-500 cursor-pointer" />
+                    </span>
+                  </div>
+                </>
+                )}
+              {currentStep === 2 && ( 
+                <h2 className="text-lg font-semibold">Plan and Actuals</h2> 
+                )}
+              
+            </div>
 
-              {currentStep === 1 && (
-                <div className="space-y-8">
-                  {/* Basic Details Section */}
-                  {/* <div className="grid grid-cols-12 gap-6"> */}
-                  <div className="flex gap-6">
-                    <div className="w-3/5">
-                      {basicDetailsVisible && (
-                        <DynamicPanel
-                          panelId="basic-details"
-                          panelTitle={basicDetailsTitle}
-                          panelIcon={<Wrench className="w-5 h-5 text-lime-500" />}
-                          panelConfig={basicDetailsConfig}
-                          initialData={basicDetailsData}
-                          onDataChange={setBasicDetailsData}
-                          onTitleChange={setBasicDetailsTitle}
-                          // onWidthChange={setBasicDetailsWidth}
-                          getUserPanelConfig={getUserPanelConfig}
-                          saveUserPanelConfig={saveUserPanelConfig}
-                          userId="current-user"
-                          // panelWidth={basicDetailsWidth}
-                        />
-                      )}
+            {currentStep === 1 && (
+              <div className="space-y-8">
+                {/* Basic Details Section */}
+                {/* <div className="grid grid-cols-12 gap-6"> */}
+                <div className="flex gap-6">
+                  <div className="w-3/5">
+                    {basicDetailsVisible && (
+                      <DynamicPanel
+                        panelId="basic-details"
+                        panelTitle={basicDetailsTitle}
+                        panelIcon={<Wrench className="w-5 h-5 text-lime-500" />}
+                        panelConfig={basicDetailsConfig}
+                        initialData={basicDetailsData}
+                        onDataChange={setBasicDetailsData}
+                        onTitleChange={setBasicDetailsTitle}
+                        // onWidthChange={setBasicDetailsWidth}
+                        getUserPanelConfig={getUserPanelConfig}
+                        saveUserPanelConfig={saveUserPanelConfig}
+                        userId="current-user"
+                      // panelWidth={basicDetailsWidth}
+                      />
+                    )}
 
-                      {operationalDetailsVisible && (
-                        <DynamicPanel
-                          panelId="operational-details"
-                          panelTitle={operationalDetailsTitle}
-                          panelIcon={<Bookmark className="w-5 h-5 text-blue-500" />}
-                          panelConfig={operationalDetailsConfig}
-                          initialData={operationalDetailsData}
-                          onDataChange={setOperationalDetailsData}
-                          onTitleChange={setOperationalDetailsTitle}
-                          // onWidthChange={setOperationalDetailsWidth}
-                          getUserPanelConfig={getUserPanelConfig}
-                          saveUserPanelConfig={saveUserPanelConfig}
-                          userId="current-user"
-                          // panelWidth={operationalDetailsWidth}
-                        />
-                      )}
-                    </div>
-                    
-                    <div className="w-2/5 rounded-lg bg-card text-card-foreground col-span-12 border border-gray-200 shadow-sm mb-24">
-                      {billingDetailsVisible && (
-                        <BillingDetailsPanel
-                          panelId="billing-details"
-                          panelTitle={billingDetailsTitle}
-                          panelIcon={<Banknote className="w-5 h-5 text-orange-500" />}
-                          panelConfig={billingDetailsConfig}
-                          initialData={billingData}
-                          onDataChange={setBillingData}
-                          onTitleChange={setBillingDetailsTitle}
-                          getUserPanelConfig={getUserPanelConfig}
-                          saveUserPanelConfig={saveUserPanelConfig}
-                          userId="current-user"
-                        />
-                      )}
-                    </div>
-                    
+                    {operationalDetailsVisible && (
+                      <DynamicPanel
+                        panelId="operational-details"
+                        panelTitle={operationalDetailsTitle}
+                        panelIcon={<Bookmark className="w-5 h-5 text-blue-500" />}
+                        panelConfig={operationalDetailsConfig}
+                        initialData={operationalDetailsData}
+                        onDataChange={setOperationalDetailsData}
+                        onTitleChange={setOperationalDetailsTitle}
+                        // onWidthChange={setOperationalDetailsWidth}
+                        getUserPanelConfig={getUserPanelConfig}
+                        saveUserPanelConfig={saveUserPanelConfig}
+                        userId="current-user"
+                      // panelWidth={operationalDetailsWidth}
+                      />
+                    )}
+                  </div>
+
+                  <div className="w-2/5 rounded-lg bg-card text-card-foreground col-span-12 border border-gray-200 shadow-sm mb-16">
+                    {billingDetailsVisible && (
+                      <BillingDetailsPanel
+                        panelId="billing-details"
+                        panelTitle={billingDetailsTitle}
+                        panelIcon={<Banknote className="w-5 h-5 text-orange-500" />}
+                        panelConfig={billingDetailsConfig}
+                        initialData={billingData}
+                        onDataChange={setBillingData}
+                        onTitleChange={setBillingDetailsTitle}
+                        getUserPanelConfig={getUserPanelConfig}
+                        saveUserPanelConfig={saveUserPanelConfig}
+                        userId="current-user"
+                      />
+                    )}
                   </div>
 
                 </div>
-              )}
 
-              {currentStep === 2 && (
-                <div className="flex items-center justify-center h-64">
-                  <p className="text-gray-500">Plan and Actuals content will be implemented here</p>
+              </div>
+            )}
+
+            {currentStep === 2 && (
+              <>
+                <div className="rounded-lg p-8 flex flex-col items-center justify-center">
+                  <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <img src={PlanActIcon} alt='Add' className="w-20 h-20" />
+                  </div>
+                  <p className="text-gray-500 text-center mb-6 text-sm">
+                    There are no items of plan and actuals available. Please click 'Add' instead.
+                  </p>
+                  <div className="flex gap-4">
+                    <Button variant="outline" onClick={bulkUploadFiles} className="h-8 my-2 rounded border-blue-600 text-blue-600 hover:bg-blue-50">
+                      Bulk Upload
+                    </Button>
+                    <Button onClick={addPlanActuals} className="h-8 my-2 bg-blue-600 rounded hover:bg-blue-700">
+                      Add Plan or Actuals
+                    </Button>
+                  </div>
                 </div>
-              )}
-            </div>
+              </>              
+            )}
           </div>
         </div>
-        {/* Action Buttons */}
-        <div className="mt-2 w-full bg-white border-t flex justify-end space-x-3 absolute bottom-0 px-8">
+      </div>
+      {/* Action Buttons */}
+      <div className="mt-2 w-full bg-white border-t flex justify-end space-x-3 absolute bottom-0 px-8">
           {currentStep === 1 && ( 
             <Button variant="outline" onClick={handleProceedToNext} className="h-8 my-2 rounded border-blue-600 text-blue-600 hover:bg-blue-50">
               Proceed to Next
@@ -456,9 +477,8 @@ const ResourceGroupDetails = ({ open, onClose }: ResourceGroupDetailsProps) => {
             Save Details
           </Button>
         </div>
-      </SheetContent>
-    </Sheet>
+    </div>
   );
 };
 
-export default ResourceGroupDetails;
+export default ResourceGroupDetailsForm;

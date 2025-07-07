@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ResourceGroupDetails from './ResourceGroupDetails';
+import ResourceGroupDetailsForm from './ResourceGroupDetails';
+import { SideDrawer } from '../Common/SideDrawer';
+import AddIcon from '../../assets/images/addIcon.png';
 
 interface NewResourceGroupProps {
   onAddResource: () => void;
@@ -10,6 +12,8 @@ interface NewResourceGroupProps {
 
 const NewResourceGroup = ({ onAddResource }: NewResourceGroupProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isMoreInfoOpen, setMoreInfoOpen] = useState(false);
+  const [isBack, setIsBack] = useState(true);
 
   const handleAddClick = () => {
     setIsDrawerOpen(true);
@@ -18,29 +22,34 @@ const NewResourceGroup = ({ onAddResource }: NewResourceGroupProps) => {
 
   return (
     <>
-      <div className="rounded-lg p-8 flex flex-col items-center justify-center min-h-[550px]">
+      <div className="rounded-lg p-8 flex flex-col items-center justify-center min-h-[500px]">
         <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-          <Plus className="w-10 h-10 text-blue-500" />
+          {/* <Plus className="w-10 h-10 text-blue-500" /> */}
+          <img src={AddIcon} alt='Add' className="w-20 h-20" />
         </div>
         
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-sm font-semibold text-gray-900 mb-2">
           No Resource Group Have been Added
         </h3>
         
-        <p className="text-gray-500 text-center mb-6 max-w-sm">
+        <p className="text-gray-500 text-center mb-6 text-sm">
           Click the "add" button to create a new resource group.
         </p>
         
-        <Button onClick={handleAddClick} className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="w-4 h-4 mr-2" />
+        <Button onClick={() => setMoreInfoOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+          {/* <Plus className="w-4 h-4 mr-2" /> */}
           Add
         </Button>
       </div>
 
-      <ResourceGroupDetails 
-        open={isDrawerOpen} 
-        onClose={() => setIsDrawerOpen(false)} 
-      />
+      <SideDrawer isOpen={isMoreInfoOpen} onClose={() => setMoreInfoOpen(false)} width="100%" title="Resource Group Details" isBack={isBack}>
+          <div className="text-sm text-gray-600">
+            <ResourceGroupDetailsForm />
+          </div>
+      </SideDrawer>
+
+      {/* <ResourceGroupDetailsForm /> */}
+      {/* <ResourceGroupDetailsForm open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} /> */}
     </>
   );
 };

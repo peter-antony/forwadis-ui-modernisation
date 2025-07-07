@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CalendarIcon, Search, CircleArrowOutUpRight  } from 'lucide-react';
+import { CalendarIcon, Search, CircleArrowOutUpRight, Paperclip, BookX , Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,9 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { SimpleDropDown } from '../Common/SimpleDropDown';
 import { InputDropDown } from '../Common/InputDropDown';
+import { SideDrawer } from '../Common/SideDrawer';
+import { DocDetailsForm } from './DocDetailsForm';
+
 
 interface OrderFormProps {
   onSaveDraft: () => void;
@@ -22,12 +25,16 @@ interface OrderFormProps {
 const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
   const [orderType, setOrderType] = useState('buy');
   const [orderDate, setOrderDate] = useState<Date>();
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showOrderNoSuggestions, setShowOrderNoSuggestions] = useState(false);
+  const [showCustomerRefSuggestions, setShowCustomerRefSuggestions] = useState(false);
   const [formData, setFormData] = useState({
     contract: '',
     customer: '',
     cluster: '',
     customerOrderNo: '',
     customerRefNo: '',
+    qcUserDefined: '',
     qcValue: '',
     remarks: '',
     summary: ''
@@ -116,6 +123,45 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
   const [qcInput, setQcInput] = useState('');
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Handle suggestions for customer order number
+    if (field === 'customerOrderNo') {
+      if (value.length > 0) {
+        const filtered = orderIds.filter(id => 
+          id.toLowerCase().includes(value.toLowerCase())
+        );
+        setSuggestions(filtered);
+        setShowOrderNoSuggestions(true);
+      } else {
+        setSuggestions([]);
+        setShowOrderNoSuggestions(false);
+      }
+    }
+    if(field === 'customerRefNo') {
+      if (value.length > 0) {
+        const filtered = customerRefIds.filter(id => 
+          id.toLowerCase().includes(value.toLowerCase())
+        );
+        setSuggestions(filtered);
+        setShowCustomerRefSuggestions(true);
+      } else {
+        setSuggestions([]);
+        setShowCustomerRefSuggestions(false);
+      }
+    }
+  };
+
+  const handleOrderNoSuggestionClick = (suggestion: string) => {
+    setFormData(prev => ({ ...prev, customerOrderNo: suggestion }));
+    setSuggestions([]);
+    setShowOrderNoSuggestions(false);
+  };
+
+
+  const handleCustomerRefSuggestionClick = (suggestion: string) => {
+    setFormData(prev => ({ ...prev, customerRefNo: suggestion }));
+    setSuggestions([]);
+    setShowCustomerRefSuggestions(false);
   };
 
   const handleQcChange = (dropdownValue: string, inputValue: string) => {
@@ -131,6 +177,31 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
     return orderDate && formData.contract && formData.customer;
   };
 
+  // Local array of order IDs for suggestions
+  const orderIds = [
+    'IO/0000000042',
+    'IO/0000000043',
+    'IO/0000000044',
+    'IO/0000000045',
+    'IO/0000000046',
+    'IO/0000000047',
+    'IO/0000000048',
+    'IO/0000000049',
+    'IO/0000000050'
+  ];
+  // Local array of customer ref IDs for suggestions
+  const customerRefIds = [
+    '1234567890',
+    '1234567891',
+    '1234567892',
+    '1234567893',
+    '1234567894',
+  ];
+  const [isMoreInfoOpen, setMoreInfoOpen] = useState(false);
+  const [isBack, setIsBack] = useState(true);
+  const [isAttachmentsOpen, setAttachmentsOpen] = useState(false);
+  const [isHistoryOpen, setHistoryOpen] = useState(false);
+  const [isLinkedOrdersOpen, setLinkedOrdersOpen] = useState(false);
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Details</h2>
@@ -244,9 +315,33 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
                     placeholder="IO/0000000042"
                     value={formData.customerOrderNo}
                     onChange={(e) => handleInputChange('customerOrderNo', e.target.value)}
+                    onFocus={() => {
+                      if (formData.customerOrderNo.length > 0) {
+                        setShowOrderNoSuggestions(true);
+                      }
+                    }}
+                    onBlur={() => {
+                      // Delay hiding suggestions to allow clicking on them
+                      setTimeout(() => setShowOrderNoSuggestions(false), 200);
+                    }}
                     className="pr-10"
                   />
                   <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  
+                  {/* Suggestions dropdown */}
+                  {showOrderNoSuggestions && suggestions.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto">
+                      {suggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                          onClick={() => handleOrderNoSuggestionClick(suggestion)}
+                        >
+                          {suggestion}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )
@@ -262,9 +357,32 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
                 placeholder="Enter Ref. No."
                 value={formData.customerRefNo}
                 onChange={(e) => handleInputChange('customerRefNo', e.target.value)}
+                onFocus={() => {
+                  if (formData.customerRefNo.length > 0) {
+                    setShowCustomerRefSuggestions(true);
+                  }
+                }}
+                onBlur={() => {
+                  // Delay hiding suggestions to allow clicking on them
+                  setTimeout(() => setShowCustomerRefSuggestions(false), 200);
+                }}
                 className="px-3 py-2 pr-10"
               />
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+               {/* Suggestions dropdown */}
+               {showCustomerRefSuggestions && suggestions.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto">
+                      {suggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                          onClick={() => handleCustomerRefSuggestionClick(suggestion)}
+                        >
+                          {suggestion}
+                        </div>
+                      ))}
+                    </div>
+                  )}
             </div>
           </div>
           <div >
@@ -311,25 +429,25 @@ const OrderForm = ({ onSaveDraft, onConfirm, onCancel }: OrderFormProps) => {
       </div>
 
       {/* Form Actions */}
-      <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
-        <button className="p-2 rounded-md border border-gray-200 hover:bg-gray-100">
-          <CircleArrowOutUpRight  className="w-5 h-5 text-gray-400" />
+      <div className="flex justify-center  gap-3 mt-8 pt-6 border-t border-gray-200">
+        <button className="p-2 rounded-lg border border-gray-200 hover:bg-gray-100" onClick={() => setMoreInfoOpen(true)}>
+          <CircleArrowOutUpRight  className="w-5 h-5 text-gray-600" />
         </button>
-        <Button
-          variant="outline"
-          onClick={onSaveDraft}
-          className="border-blue-300 text-blue-600 hover:bg-blue-50"
-        >
-          Save Draft
-        </Button>
-        <Button
-          onClick={onConfirm}
-          disabled={!isFormValid()}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300"
-        >
-          Confirm
-        </Button>
+        <button className="p-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+          <Paperclip   className="w-5 h-5 text-gray-600" />
+        </button>
+        <button className="p-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+          <BookX    className="w-5 h-5 text-gray-600" />
+        </button>
+        <button className="p-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+          <Link     className="w-5 h-5 text-gray-600" />
+        </button>
       </div>
+       <SideDrawer isOpen={isMoreInfoOpen} onClose={() => setMoreInfoOpen(false)} width="50%" title="More Info" isBack={isBack}>
+          <div className="p-4">
+            <div className="mt-2 text-sm text-gray-600"><DocDetailsForm /></div>
+          </div>
+        </SideDrawer>
     </div>
   );
 };
